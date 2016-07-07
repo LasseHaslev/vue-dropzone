@@ -1,0 +1,22 @@
+{
+  "name": "@lassehaslev/vue-dropzone",
+  "version": "0.1.0",
+  "description": "Drag and drop upload for vue",
+  "main": "src/Dropzone.vue",
+  "author": "Lasse S. Haslev <lasse@haslev.no>",
+  "license": "ISC",
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.0",
+    "gulp": "^3.9.1",
+    "laravel-elixir": "^5.0.0",
+    "laravel-elixir-vueify": "^1.0.3"
+  },
+  "dependencies": {
+    "@lassehaslev/restful-vue": "^0.1.1",
+    "vue-modal-browserify": "^0.8.17"
+  }
+}
