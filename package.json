@@ -18,5 +18,11 @@
   "dependencies": {
     "vue-modal-browserify": "^0.8.17",
     "vue-resource": "^0.9.3"
+  },
+  "browserify": {
+      "transform": [
+          "vueify",
+          "babelify"
+      ]
   }
 }
