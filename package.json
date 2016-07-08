@@ -1,6 +1,6 @@
 {
   "name": "@lassehaslev/vue-dropzone",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Drag and drop upload for vue",
   "main": "src/Dropzone.vue",
   "author": "Lasse S. Haslev <lasse@haslev.no>",
