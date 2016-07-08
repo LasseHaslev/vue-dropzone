@@ -6,7 +6,12 @@ Run ```npm install @lassehaslev/vue-dropzone --save``` in your project folder
 
 ## Usage
 ``` js
-import DropZone from '@lassehaslev/vue-dropzone';
+import Vue from 'vue';
+
+import { DropzoneInstall } from '@lassehaslev/vue-dropzone';
+import DropZone from '@lassehaslev/vue-dropzone'
+
+Vue.use( DropzoneInstall );
 
 <template>
     <!-- The dropzone component creates a dropzone -->

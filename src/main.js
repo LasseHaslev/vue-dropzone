@@ -1,7 +1,9 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource';
-Vue.use( VueResource );
-import DropZone from './Dropzone.vue'
+import { DropzoneInstall } from './Dropzone';
+import DropZone from './Dropzone'
+
+Vue.use( DropzoneInstall );
+
 
 new Vue({
     el: 'body',

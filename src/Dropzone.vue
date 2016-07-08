@@ -51,6 +51,7 @@ $dropzone-outline-offset-drag: 8px;
 </div>
 </template>
 <script>
+
 export default {
 
     props: {
@@ -156,4 +157,5 @@ export default {
     },
 
 }
+
 </script>

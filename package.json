@@ -16,7 +16,7 @@
     "laravel-elixir-vueify": "^1.0.3"
   },
   "dependencies": {
-    "@lassehaslev/restful-vue": "^0.1.1",
-    "vue-modal-browserify": "^0.8.17"
+    "vue-modal-browserify": "^0.8.17",
+    "vue-resource": "^0.9.3"
   }
 }
