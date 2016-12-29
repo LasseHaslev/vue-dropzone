@@ -8,9 +8,14 @@ export default {
             required: true,
         },
 
+        name: {
+            type: String,
+            default: 'file',
+        },
+
         multiple: {
             type: Boolean,
-            default: false,
+            default: true,
         },
 
         'prevent-click': {
@@ -18,6 +23,12 @@ export default {
             default: false,
         },
 
+    },
+
+    watch: {
+        'dragOver'( value ) {
+            this.$emit( 'state-change', value );
+        }
     },
 
     data() {
@@ -53,7 +64,7 @@ export default {
                 return this.uploadFile( this.droppedFiles[0] );
             }
 
-            for (var i = 0, len = this.droppedFiles; i < len; i++) {
+            for (var i = 0, len = this.droppedFiles.length; i < len; i++) {
                 var file = this.droppedFiles[ i ];
                 this.uploadFile( file );
             }
@@ -64,7 +75,7 @@ export default {
             var data = this.prepareFileForUpload( file );
             var self = this;
             this.uploader.upload( data ).then( function( request ) {
-                self.$emit( 'upload', request );
+                self.$emit( 'upload', file );
             } ).catch( function( reason ) {
                 self.$emit( 'error', reason )
             } );
@@ -75,7 +86,6 @@ export default {
             var input = this.getInput();
             var ajaxData = new FormData();
 
-            // ajaxData.
             ajaxData.append( input.getAttribute( 'name' ), file );
             return ajaxData;
             console.log(ajaxData);
@@ -94,6 +104,7 @@ export default {
 
 
         drop( evt ) {
+            console.log(evt.dataTransfer.files);
             this.addFiles( evt.dataTransfer.files );
             this.removeDragOver();
         },

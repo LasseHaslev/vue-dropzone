@@ -18,8 +18,8 @@ export default {
 
                 <slot></slot>
             </form>
-            <input v-if="multiple" @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" name="files[]" multiple />
-            <input v-else @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" name="file" />
+            <input v-if="multiple" @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" :name="name" multiple />
+            <input v-else @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" :name="name" />
         </div>
     `,
     mixins: [ BaseDropzone ],

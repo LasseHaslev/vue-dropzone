@@ -5,11 +5,9 @@ export default class {
     }
 
     upload( file ) {
-        console.log('upload');
         return new Promise((resolve, reject) => {
             axios.post( this.url, file )
             .then( response => {
-                console.log('Hello world');
                 resolve( response.data );
             } )
             .catch( error => {
