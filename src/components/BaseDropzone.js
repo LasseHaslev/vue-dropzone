@@ -11,6 +11,12 @@ export default {
             type: Boolean,
             default: false,
         },
+
+        'prevent-click': {
+            type: Boolean,
+            default: false,
+        },
+
     },
 
     data() {
@@ -27,9 +33,11 @@ export default {
             return this.$el.querySelector( 'input[type=file]' );
         },
 
-        findFile() {
-            var input = this.getInput();
-            input.click();
+        onClick() {
+            if ( ! this.preventClick ) {
+                var input = this.getInput();
+                input.click();
+            }
         },
 
         submit() {

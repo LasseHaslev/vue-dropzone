@@ -12,7 +12,7 @@ export default {
 
                 @submit.prevent="submit"
 
-                @click="findFile"
+                @click="onClick"
 
                 class="DropUpload" :class="{
                     'DropUpload--drag': dragOver
