@@ -64,9 +64,9 @@ export default {
             var data = this.prepareFileForUpload( file );
             var self = this;
             this.uploader.upload( data ).then( function( request ) {
-                self.$emit( 'upload', request.data.data );
+                self.$emit( 'upload', request );
             } ).catch( function( reason ) {
-                self.$emit( 'error', reason.data )
+                self.$emit( 'error', reason )
             } );
         },
 
