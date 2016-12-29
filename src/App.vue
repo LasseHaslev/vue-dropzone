@@ -11,6 +11,7 @@
                 </div>
             </section>
 
+            <single-dropzone></single-dropzone>
             <normal-dropzone></normal-dropzone>
 
             <div class="hero is-primary">
@@ -25,6 +26,7 @@
 
 <script>
 import NormalDropzone from './tutorials/NormalDropzone';
+import SingleDropzone from './tutorials/SingleDropzone';
 export default {
     name: 'app',
     data () {
@@ -32,6 +34,7 @@ export default {
         }
     },
     components: {
+        SingleDropzone,
         NormalDropzone,
     }
 }
