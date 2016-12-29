@@ -97,7 +97,7 @@ export default {
                 return this.uploadFile( this.droppedFiles[0] );
             }
 
-            for (var i = 0, len = this.droppedFiles; i < len; i++) {
+            for (var i = 0, len = this.droppedFiles.length; i < len; i++) {
                 var file = this.droppedFiles[ i ];
                 this.uploadFile( file );
             }
