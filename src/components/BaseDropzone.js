@@ -1,57 +1,4 @@
-<style lang="sass">
-$dropzone-outline: 4px dashed gray;
-$dropzone-outline-offset: 0;
-$dropzone-outline-offset-drag: 8px;
-.DropUpload {
-
-    transition: all .3s;
-
-    cursor: pointer;
-
-    background-color: white;
-    outline: $dropzone-outline;
-    outline-offset: $dropzone-outline-offset;
-
-    &--drag {
-        outline-offset: $dropzone-outline-offset-drag;
-    }
-
-    &__file {
-        visibility: hidden;
-        position: absolute;
-        top:0;
-        left:0;
-        width:0;
-        height:0;
-    }
-}
-</style>
-<template>
-<div>
-    <form 
-        @dragover.stop.prevent="addDragOver"
-        @dragenter.stop.prevent="addDragOver"
-
-        @dragleave.stop.prevent="removeDragOver"
-        @dragend.stop.prevent="removeDragOver"
-        @drop.stop.prevent="drop"
-
-        @submit.prevent="submit"
-
-        @click="findFile"
-
-        class="DropUpload" :class="{
-            'DropUpload--drag': dragOver
-        }" method="post" action="" enctype="multipart/form-data">
-
-        <slot></slot>
-    </form>
-    <input v-if="multiple" @change="inputChanged" class="DropUpload__file" type="file" name="files[]" multiple />
-    <input v-else @change="inputChanged" class="DropUpload__file" type="file" name="file" />
-</div>
-</template>
-<script>
-
+import AxiosUploader from './Classes/AxiosUploader';
 export default {
 
     props: {
@@ -61,14 +8,32 @@ export default {
             required: true,
         },
 
+        name: {
+            type: String,
+            default: 'file',
+        },
+
         multiple: {
+            type: Boolean,
+            default: true,
+        },
+
+        'prevent-click': {
             type: Boolean,
             default: false,
         },
+
+    },
+
+    watch: {
+        'dragOver'( value ) {
+            this.$emit( 'state-change', value );
+        }
     },
 
     data() {
         return {
+            uploader: new AxiosUploader( this.url ),
             droppedFiles: false,
 
             dragOver: false,
@@ -81,9 +46,11 @@ export default {
             return this.$el.querySelector( 'input[type=file]' );
         },
 
-        findFile() {
-            var input = this.getInput();
-            input.click();
+        onClick() {
+            if ( ! this.preventClick ) {
+                var input = this.getInput();
+                input.click();
+            }
         },
 
         submit() {
@@ -106,10 +73,11 @@ export default {
 
         uploadFile( file ) {
             var data = this.prepareFileForUpload( file );
-            this.$http.post( this.url, data ).then( function( request ) {
-                this.$dispatch( 'FileUploaded', request.data.data );
+            var self = this;
+            this.uploader.upload( data ).then( function( request ) {
+                self.$emit( 'upload', file );
             } ).catch( function( reason ) {
-                this.$dispatch( 'FileUploadError', reason.data )
+                self.$emit( 'error', reason )
             } );
         },
 
@@ -118,7 +86,6 @@ export default {
             var input = this.getInput();
             var ajaxData = new FormData();
 
-            // ajaxData.
             ajaxData.append( input.getAttribute( 'name' ), file );
             return ajaxData;
             console.log(ajaxData);
@@ -137,25 +104,24 @@ export default {
 
 
         drop( evt ) {
+            console.log(evt.dataTransfer.files);
             this.addFiles( evt.dataTransfer.files );
             this.removeDragOver();
         },
 
         addFiles( fileList ) {
-            this.$set( 'droppedFiles', fileList );
+            this.droppedFiles = fileList;
             this.submit();
         },
 
         addDragOver() {
-            this.$set( 'dragOver', true );
+            this.dragOver = true;
         },
 
         removeDragOver() {
-            this.$set( 'dragOver', false );
+            this.dragOver = false;
         },
 
     },
 
 }
-
-</script>

@@ -1,57 +1,95 @@
 # @lassehaslev/vue-dropzone
-> Drag and drop upload for vue.
+> Drop upload with Vue2
 
-## Installation
+## Install
 Run ```npm install @lassehaslev/vue-dropzone --save``` in your project folder
 
 ## Usage
-``` js
-import Vue from 'vue';
-
-import { DropzoneInstall } from '@lassehaslev/vue-dropzone';
-import DropZone from '@lassehaslev/vue-dropzone'
-
-Vue.use( DropzoneInstall );
-
-<template>
-    <!-- The dropzone component creates a dropzone -->
-    <!-- over the selected element -->
-    <drop-zone url="/api/create/new/file">
-        <div style="height: 130px; width:100%;">
-            Drop files here to upload
-        </div>
-    </drop-zone>
-</template>
-<script>
+```js
+import {Dropzone} from '@lassehaslev/vue-dropzone';
 export default {
-    components: { DropZone }
-    events: {
-        'FileUploaded'( image ) {
-            console.log( image )
-        }
-    }
-}
-</script>
-});
+    template: `
+        <section class="section">
+            <div class="container">
+                <h1 class="title">Normal dropzone</h1>
+                <dropzone @state-change="onStateChanged" @upload="onUpload" @error="onError" url="http://localhost:1337/api/images" ref="dropzone">
+                    <div style="width: 300px; height:300px;" :style="{ 'background-color': color }">&nbsp;</div>
+                </dropzone>
+            </div>
 
+            <div v-for="file in files">
+                {{ file.name }}
+            </div>
+        </section>
+    `,
+
+    data() {
+        return {
+            color: '#FF0000',
+            files: [],
+        }
+    },
+
+    methods: {
+        onStateChanged( enter ) {
+            this.color = enter ? '#0000FF' : '#FF0000';
+        },
+        onUpload( file ) {
+            this.files.push( file );
+        },
+        onError( response ) {
+            console.log('Error');
+            console.log(response);
+        },
+    },
+
+    components: {
+        Dropzone,
+    },
+}
 ```
 
+#### Build your own
+```js
+import BaseDropzone from './BaseDropzone';
+export default {
+    template: `
+        <div>
+            <form 
+                @dragover.stop.prevent="addDragOver"
+                @dragenter.stop.prevent="addDragOver"
+
+                @dragleave.stop.prevent="removeDragOver"
+                @dragend.stop.prevent="removeDragOver"
+                @drop.stop.prevent="drop"
+
+                @submit.prevent="submit"
+
+                @click="onClick"
+
+                method="post" action="" enctype="multipart/form-data">
+
+                <slot></slot>
+            </form>
+            <input v-if="multiple" @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" :name="name" multiple />
+            <input v-else @change="inputChanged" style="visibility:hidden; position:aboslute;top: -99999; left:-9999999;" type="file" :name="name" />
+        </div>
+    `,
+    mixins: [ BaseDropzone ],
+}
+```
 
 ## Development
-``` bash
-# Clone package
-git clone https://github.com/LasseHaslev/vue-dropzone
 
+``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at http://localhost:3000/
-gulp watch
+# serve with hot reload at localhost:8080
+npm run dev
 
 # build for production with minification
-gulp --production
+npm run build
 ```
 
-## License
-
-MIT, dawg
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
