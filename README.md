@@ -1,57 +1,18 @@
 # @lassehaslev/vue-dropzone
-> Drag and drop upload for vue.
 
-## Installation
-Run ```npm install @lassehaslev/vue-dropzone --save``` in your project folder
+> Upload files with ease!
 
-## Usage
-``` js
-import Vue from 'vue';
+## Build Setup
 
-import { DropzoneInstall } from '@lassehaslev/vue-dropzone';
-import DropZone from '@lassehaslev/vue-dropzone'
-
-Vue.use( DropzoneInstall );
-
-<template>
-    <!-- The dropzone component creates a dropzone -->
-    <!-- over the selected element -->
-    <drop-zone url="/api/create/new/file">
-        <div style="height: 130px; width:100%;">
-            Drop files here to upload
-        </div>
-    </drop-zone>
-</template>
-<script>
-export default {
-    components: { DropZone }
-    events: {
-        'FileUploaded'( image ) {
-            console.log( image )
-        }
-    }
-}
-</script>
-});
-
-```
-
-
-## Development
 ``` bash
-# Clone package
-git clone https://github.com/LasseHaslev/vue-dropzone
-
 # install dependencies
 npm install
 
-# serve with hot reload at http://localhost:3000/
-gulp watch
+# serve with hot reload at localhost:8080
+npm run dev
 
 # build for production with minification
-gulp --production
+npm run build
 ```
 
-## License
-
-MIT, dawg
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).

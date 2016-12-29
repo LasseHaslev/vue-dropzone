@@ -1,18 +1,7 @@
 import Vue from 'vue'
-import { DropzoneInstall } from './Dropzone';
-import DropZone from './Dropzone'
-
-Vue.use( DropzoneInstall );
-
+import App from './App.vue'
 
 new Vue({
-    el: 'body',
-
-    events: {
-        'FileUploaded'( fileObject ) {
-            console.log( fileObject );
-        }
-    },
-
-    components: { DropZone }
+  el: '#app',
+  render: h => h(App)
 })
