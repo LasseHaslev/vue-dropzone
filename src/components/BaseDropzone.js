@@ -1,3 +1,4 @@
+import AxiosUploader from './Classes/AxiosUploader';
 export default {
 
     props: {
@@ -21,6 +22,7 @@ export default {
 
     data() {
         return {
+            uploader: new AxiosUploader( this.url ),
             droppedFiles: false,
 
             dragOver: false,
@@ -60,10 +62,11 @@ export default {
 
         uploadFile( file ) {
             var data = this.prepareFileForUpload( file );
-            this.$http.post( this.url, data ).then( function( request ) {
-                this.$dispatch( 'FileUploaded', request.data.data );
+            var self = this;
+            this.uploader.upload( data ).then( function( request ) {
+                self.$emit( 'upload', request.data.data );
             } ).catch( function( reason ) {
-                this.$dispatch( 'FileUploadError', reason.data )
+                self.$emit( 'error', reason.data )
             } );
         },
 
@@ -96,16 +99,16 @@ export default {
         },
 
         addFiles( fileList ) {
-            this.$set( 'droppedFiles', fileList );
+            this.droppedFiles = fileList;
             this.submit();
         },
 
         addDragOver() {
-            this.$set( 'dragOver', true );
+            this.dragOver = true;
         },
 
         removeDragOver() {
-            this.$set( 'dragOver', false );
+            this.dragOver = false;
         },
 
     },
