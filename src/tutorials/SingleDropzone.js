@@ -27,7 +27,7 @@ export default {
         onStateChanged( enter ) {
             this.color = enter ? '#0000FF' : '#FF0000';
         },
-        onUpload( file ) {
+        onUpload( response, file ) {
             this.files.push( file );
             this.getFileContent( file );
         },

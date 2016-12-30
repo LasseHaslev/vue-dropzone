@@ -74,8 +74,8 @@ export default {
         uploadFile( file ) {
             var data = this.prepareFileForUpload( file );
             var self = this;
-            this.uploader.upload( data ).then( function( request ) {
-                self.$emit( 'upload', file );
+            this.uploader.upload( data ).then( function( response ) {
+                self.$emit( 'upload', response, file );
             } ).catch( function( reason ) {
                 self.$emit( 'error', reason )
             } );
@@ -88,7 +88,6 @@ export default {
 
             ajaxData.append( input.getAttribute( 'name' ), file );
             return ajaxData;
-            console.log(ajaxData);
 
         },
 
@@ -104,7 +103,6 @@ export default {
 
 
         drop( evt ) {
-            console.log(evt.dataTransfer.files);
             this.addFiles( evt.dataTransfer.files );
             this.removeDragOver();
         },

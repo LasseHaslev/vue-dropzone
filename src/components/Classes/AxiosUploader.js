@@ -8,10 +8,10 @@ export default class {
         return new Promise((resolve, reject) => {
             axios.post( this.url, file )
             .then( response => {
-                resolve( response.data );
+                resolve( response );
             } )
             .catch( error => {
-                reject( error.response.data );
+                reject( error );
             } );
         });
     }
