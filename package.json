@@ -3,6 +3,10 @@
   "description": "Upload files with ease!",
   "version": "1.0.1",
   "author": "Lasse S. Haslev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lassehaslev/vue-dropzone.git"
+  },
   "private": false,
   "main": "src/index.js",
   "scripts": {
