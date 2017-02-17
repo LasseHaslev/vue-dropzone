@@ -1,7 +1,7 @@
 {
   "name": "@lassehaslev/vue-dropzone",
   "description": "Upload files with ease!",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Lasse S. Haslev",
   "repository": {
     "type": "git",
